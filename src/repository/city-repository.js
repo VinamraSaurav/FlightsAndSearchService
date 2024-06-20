@@ -1,46 +1,50 @@
 const {City} = require('../models/index');
 
 class CityRepository {
-    async create(city) {
+    async createCity({name}) {
         try{
-            const city = await City.create(city);
+            const city = await City.create({name});
             return city;
         }catch(error){
+            console.log("Error in CityRepository");
             throw error;
         }
     }
     
-    async findAll() {
+    async getAllCity() {
         try{
             const getCity = await City.findAll();
             return getCity;
         }catch(error){
+            console.log("Error in CityRepository");
             throw error;
         }
     }
     
-    async findById(id) {
+    async getCity(cityId) {
         try{
-            const city = await City.findByPk(id);
+            const city = await City.findByPk(cityId);
             return city;
         }catch(error){
+            console.log("Error in CityRepository");
             throw error;
         }
     }
     
-    async update(id, cityDetails) {
+    async updateCity(cityId, cityDetails) {
         try{
             await City.update(cityDetails, {
                 where: {
-                    id:id,
+                    id:cityId,
                 }
             });
         }catch(error){
+            console.log("Error in CityRepository");
             throw error;
         }
     }
     
-    async delete(id) {
+    async deleteCity(id) {
         try{
             await City.destroy({
                 where: {
@@ -48,6 +52,7 @@ class CityRepository {
                 }
             });
         }catch(error){
+            console.log("Error in CityRepository");
             throw error;
         }
     }
@@ -58,13 +63,5 @@ module.exports = new CityRepository();
 
 
 /**
- * The CityRepository class is a class that contains methods for interacting with the City model.
- * The create method is used to create a new city.
- * The findAll method is used to retrieve all cities.
- * The findById method is used to retrieve a city by its id.
- * The update method is used to update a city by its id.
- * The delete method is used to delete a city by its id.
- * The CityRepository class is exported as a singleton instance.
- * 
- * 
+
  */
