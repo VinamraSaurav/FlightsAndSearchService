@@ -21,7 +21,7 @@ class CityRepository {
         }
     }
     
-    async getCity(cityId) {
+    async getCityById(cityId) {
         try{
             const city = await City.findByPk(cityId);
             return city;
@@ -51,6 +51,7 @@ class CityRepository {
                     id:id,
                 }
             });
+            return true;
         }catch(error){
             console.log("Error in CityRepository");
             throw error;
@@ -59,9 +60,5 @@ class CityRepository {
 }
 
 
-module.exports = new CityRepository();
+module.exports = CityRepository;
 
-
-/**
-
- */
