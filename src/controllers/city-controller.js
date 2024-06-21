@@ -25,7 +25,7 @@ const createCity = async (req, res) => {
 // Get -> /city
 const getAllCity = async (req, res) => {
     try{
-        const cities = await CityService.getAllCity();
+        const cities = await CityService.getAllCity(req.query);
         res.status(200).json({
             data : cities,
             success : true,
