@@ -1,6 +1,27 @@
 const { CityService } = require('../services/index');
 
 
+// Post -> /city/bulk -> req.body -> [{name : "city name"}]
+const createCityBulk = async (req, res) => {
+    try{
+        const cities = await CityService.createCityBulk(req.body);
+        res.status(201).json({
+            data : cities,
+            success : true,
+            message : "Cities created successfully"
+        });
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({
+            data : null,
+            success : false,
+            message : "Internal server error : Not able to create cities",
+            error : error
+    });
+    }
+}
+
 // Post -> /city -> req.body -> {name : "city name"}
 const createCity = async (req, res) => {
     try{
@@ -107,6 +128,7 @@ const deleteCity = async (req, res) => {
 }
 
 module.exports = {
+    createCityBulk,
     createCity,
     getAllCity,
     getCityById,

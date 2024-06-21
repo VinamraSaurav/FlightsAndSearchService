@@ -5,6 +5,17 @@ class CityRepository {
   constructor() {
     this.City = City;
   }
+  async createCityBulk({ name }) {
+    try {
+      console.log({ name });
+      const cities = name.map((cityName) => ({ name: cityName }));
+      const createdCities = await this.City.bulkCreate(cities);
+      return createdCities;
+    } catch (error) {
+      console.log("Error in CityRepository");
+      throw error;
+    }
+  }
 
   async createCity({ name }) {
     try {
