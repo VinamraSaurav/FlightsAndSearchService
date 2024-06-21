@@ -37,11 +37,12 @@ class CityRepository {
 
   async updateCity(cityId, cityDetails) {
     try {
-      await this.City.update(cityDetails, {
+      const city = await this.City.update(cityDetails, {
         where: {
           id: cityId,
         },
       });
+      return city;
     } catch (error) {
       console.log("Error in CityRepository");
       throw error;

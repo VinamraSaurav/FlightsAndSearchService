@@ -1,7 +1,7 @@
-const CityService = require('../services/index');
+const { CityService } = require('../services/index');
 
 
-// Post -> /create-city -> req.body -> {name : "city name"}
+// Post -> /city -> req.body -> {name : "city name"}
 const createCity = async (req, res) => {
     try{
         const city = await CityService.createCity(req.body);
@@ -22,7 +22,7 @@ const createCity = async (req, res) => {
     }
 }
 
-// Get -> /get-all-city
+// Get -> /city
 const getAllCity = async (req, res) => {
     try{
         const cities = await CityService.getAllCity();
@@ -43,7 +43,7 @@ const getAllCity = async (req, res) => {
     }
 }
 
-// Get -> /get-city-by-id/:id -> req.params -> {id : 1}
+// Get -> /city/:id -> req.params -> {id : 1}
 const getCityById = async (req, res) => {
     try{
         const city = await CityService.getCityById(req.params.id);
@@ -64,7 +64,7 @@ const getCityById = async (req, res) => {
     }
 }
 
-// Put -> /update-city/:id -> req.params -> {id : 1} -> req.body -> {name : "city name"}
+// Put -> /city/:id -> req.params -> {id : 1} -> req.body -> {name : "city name"}
 const updateCity = async (req, res) => {
     try{
         const city = await CityService.updateCity(req.params.id, req.body);
@@ -85,7 +85,7 @@ const updateCity = async (req, res) => {
     }
 }
 
-// Delete -> /delete-city/:id -> req.params -> {id : 1}
+// Delete -> /city/:id -> req.params -> {id : 1}
 const deleteCity = async (req, res) => {
     try{
         const response = await CityService.deleteCity(req.params.id);
