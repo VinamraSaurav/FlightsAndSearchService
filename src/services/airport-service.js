@@ -45,9 +45,9 @@ class AirportService {
         }
     }
 
-    async deleteAirport(id) {
+    async deleteAirport(airportId) {
         try {
-            const airport = await this.airportRepository.deleteAirport(id);
+            const airport = await this.airportRepository.deleteAirport(airportId);
             return airport;
         } catch (error) {
             console.log("Error in AirportService");

@@ -1,6 +1,27 @@
 const { CityService } = require('../services/index');
 
 
+//Get -> /city/aiport/?cityId=1 -> req.query -> {cityId : 1}
+const getAirportByCityId = async (req, res) => {
+    try{
+        const city = await CityService.getAirportByCityId(req.query);
+        res.status(200).json({
+            data : city,
+            success : true,
+            message : "Airport fetched successfully by city id"
+        });
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).json({
+            data : null,
+            success : false,
+            message : "Internal server error : Not able to get airport by city id",
+            error : error
+    });
+    }
+}
+
 // Post -> /city/bulk -> req.body -> [{name : "city name"}]
 const createCityBulk = async (req, res) => {
     try{
@@ -128,6 +149,7 @@ const deleteCity = async (req, res) => {
 }
 
 module.exports = {
+    getAirportByCityId,
     createCityBulk,
     createCity,
     getAllCity,

@@ -3,9 +3,9 @@ const router = express.Router();
 const { createAirport, getAllAirport, getAirportById, updateAirport, deleteAirport} = require('../../../controllers/airport-controller');
 
 router.get('/', getAllAirport);
-router.get('/:id', getAirportById);
+router.get('/:airportId', getAirportById);
 router.post('/', createAirport);
-router.put('/:id', updateAirport);
-router.delete('/:id', deleteAirport);
+router.put('/:airportId', updateAirport);
+router.delete('/:airportId', deleteAirport);
 
 module.exports = router;

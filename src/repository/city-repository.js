@@ -1,15 +1,32 @@
-const { City } = require("../models/index");
+const { City, Airport } = require("../models/index");
 const { Op} = require("sequelize");
 
 class CityRepository {
   constructor() {
     this.City = City;
   }
-  async createCityBulk({ name }) {
+  
+  async getAirportByCityId(data) {
     try {
-      console.log({ name });
-      const cities = name.map((cityName) => ({ name: cityName }));
-      const createdCities = await this.City.bulkCreate(cities);
+      if(data.cityId){
+      const city = await this.City.findByPk(data.cityId, {
+        include: Airport,
+      });
+      return city;
+      }
+      const cities = await this.City.findAll({
+        include: Airport,
+      });
+      return cities;
+    } catch (error) {
+      console.log("Error in CityRepository");
+      throw error;
+    }
+  }
+
+  async createCityBulk(data) {
+    try {
+      const createdCities = await this.City.bulkCreate(data); // Here, data expects an array of objects.. eg. [{name : "city name"}, {name : "city name"}]
       return createdCities;
     } catch (error) {
       console.log("Error in CityRepository");

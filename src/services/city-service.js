@@ -6,6 +6,17 @@ class CityService {
      this.cityRepository = CityRepository;
   }
 
+  async getAirportByCityId(data) {
+    try{
+      const city = await this.cityRepository.getAirportByCityId(data);
+      return city;
+    }
+    catch(error){
+      console.log("Error in CityService");
+      throw error;
+    }
+  }
+
   async createCityBulk(data){
     try{
       const city = await this.cityRepository.createCityBulk(data);

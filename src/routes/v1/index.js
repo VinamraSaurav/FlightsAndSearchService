@@ -1,9 +1,5 @@
-const express = require('express');
-const router = express.Router();
-const cityApiRoutes = require('./city/index');
-const airportApiRoutes = require('./airport/index');
-
-router.use('/city', cityApiRoutes);
-router.use('/airport', airportApiRoutes);
-
-module.exports = router;
+module.exports = {
+    cityApiRoutes : require('./city/index'),
+    airportApiRoutes : require('./airport/index'),
+    airplaneApiRoutes : require('./airplane/index'),
+}
