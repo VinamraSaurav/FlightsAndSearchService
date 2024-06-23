@@ -1,5 +1,6 @@
 module.exports = {
-    cityApiRoutes : require('./city/index'),
-    airportApiRoutes : require('./airport/index'),
-    airplaneApiRoutes : require('./airplane/index'),
+    cityApiRoutes : require('./cities/index'),
+    airportApiRoutes : require('./airports/index'),
+    airplaneApiRoutes : require('./airplanes/index'),
+    flightApiRoutes : require('./flights/index'),
 }
