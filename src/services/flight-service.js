@@ -23,7 +23,7 @@ class FlightService {
 
     async getAllFlight(filter) {
         try {
-            const flights = await this.flightRepository.getAllFlight(filter);
+            const flights = await this.flightRepository.getAllFlights(filter);
             return flights;
         } catch (error) {
             console.log("Error in FlightService");

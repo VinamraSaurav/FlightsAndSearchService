@@ -25,6 +25,13 @@ const createAirport = async (req, res) => {
 const getAllAirport = async (req, res) => {
     try{
         const airports = await AirportService.getAllAirport(req.query);
+        if(airports.length === 0){
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "No airports found"
+            });
+        }
         res.status(200).json({
             data : airports,
             success : true,
@@ -46,6 +53,13 @@ const getAllAirport = async (req, res) => {
 const getAirportById = async (req, res) => {
     try{
         const airport = await AirportService.getAirportById(req.params.airportId);
+        if(!airport){
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "Airport not found"
+            });
+        }
         res.status(200).json({
             data : airport,
             success : true,
@@ -67,6 +81,13 @@ const getAirportById = async (req, res) => {
 const updateAirport = async (req, res) => {
     try{
         const airport = await AirportService.updateAirport(req.params.airportId, req.body);
+        if(!airport){
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "Airport not found"
+            });
+        }
         res.status(200).json({
             data : airport,
             success : true,

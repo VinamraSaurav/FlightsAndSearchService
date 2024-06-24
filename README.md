@@ -24,11 +24,13 @@
 
 ## Tables
 
-### City - id, name, updatedAt, createdAt
+- City - id, name, updatedAt, createdAt
 <!-- run ` npx sequelize model:generate --name City --attributes name:String ` -->
 
-### Airport - id, name, address, cityId, updatedAt, createdAt
+- Airport - id, name, address, cityId, updatedAt, createdAt
   - Relationship - City has multiple airports and Airport belongs to a city. (one to many relationship).
 <!-- run ` npx sequelize model:generate --name  Airport --attributes name:String, address:String, cityId:Integer` -->
 
-### Airplane - id, modleName, capacity, updatedAt, createdAt
+- Airplane - id, modleName, capacity, updatedAt, createdAt
+
+- Flights - id, flightName, airplaneId, arrivalAirportId, departureAirportId, arrivalTime, departureTime, totalSeats, price, boardingGate, createdAt, updatedAt.

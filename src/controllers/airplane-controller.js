@@ -23,6 +23,13 @@ const createAirplane = async (req, res) => {
 const getAirplaneById = async (req, res) => {
     try {
         const airplane = await AirplaneService.getAirplaneById(req.params.airplaneId);
+        if(!airplane) {
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "Airplane not found",
+            });
+        }
         res.status(200).json({
             data : airplane,
             success : true,
@@ -42,6 +49,13 @@ const getAirplaneById = async (req, res) => {
 const getAllAirplanes = async (req, res) => {
     try {
         const airplanes = await AirplaneService.getAllAirplanes(req.query);
+        if(airplanes.length === 0) {
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "No airplanes found",
+            });
+        }
         res.status(200).json({
             data : airplanes,
             success : true,
@@ -61,6 +75,13 @@ const getAllAirplanes = async (req, res) => {
 const updateAirplaneById = async (req, res) => {
     try {
         const airplane = await AirplaneService.updateAirplaneById(req.params.airplaneId, req.body);
+        if(!airplane) {
+            return res.status(404).json({
+                data : null,
+                success : false,
+                message : "Airplane not found",
+            });
+        }
         res.status(200).json({
             data : airplane,
             success : true,
