@@ -1,9 +1,9 @@
 const { AirplaneService } = require('../services/index');
 
-// Post -> /airplane -> req.body -> {model, capacity}
+// Post -> /airplanes -> req.body -> {model, capacity}
 const createAirplane = async (req, res) => {
     try {
-        const airplane = await AirplaneService.createAirplane(req.body);
+        const airplane = await AirplaneService.create(req.body);
         res.status(201).json({
             data : airplane,
             success : true,
@@ -19,10 +19,10 @@ const createAirplane = async (req, res) => {
     }
 }
 
-// Get -> /airplane/:airplaneId -> req.params -> {airplaneId}
+// Get -> /airplanes/:airplaneId -> req.params -> {airplaneId}
 const getAirplaneById = async (req, res) => {
     try {
-        const airplane = await AirplaneService.getAirplaneById(req.params.airplaneId);
+        const airplane = await AirplaneService.getById(req.params.airplaneId);
         if(!airplane) {
             return res.status(404).json({
                 data : null,
@@ -45,10 +45,10 @@ const getAirplaneById = async (req, res) => {
     }
 }
 
-// Get -> /airplane?model -> req.query -> {model}
+// Get -> /airplanes?model -> req.query -> {model}
 const getAllAirplanes = async (req, res) => {
     try {
-        const airplanes = await AirplaneService.getAllAirplanes(req.query);
+        const airplanes = await AirplaneService.getAll(req.query);
         if(airplanes.length === 0) {
             return res.status(404).json({
                 data : null,
@@ -71,10 +71,10 @@ const getAllAirplanes = async (req, res) => {
     }
 }
 
-// Put -> /airplane/:airplaneId -> req.params -> {airplaneId}, req.body -> {model, capacity}
+// Put -> /airplanes/:airplaneId -> req.params -> {airplaneId}, req.body -> {model, capacity}
 const updateAirplaneById = async (req, res) => {
     try {
-        const airplane = await AirplaneService.updateAirplaneById(req.params.airplaneId, req.body);
+        const airplane = await AirplaneService.updateById(req.params.airplaneId, req.body);
         if(!airplane) {
             return res.status(404).json({
                 data : null,
@@ -97,10 +97,10 @@ const updateAirplaneById = async (req, res) => {
     }
 }
 
-// Delete -> /airplane/:airplaneId -> req.params -> {airplaneId}
+// Delete -> /airplanes/:airplaneId -> req.params -> {airplaneId}
 const deleteAirplaneById = async (req, res) => {
     try {
-        const airplane = await AirplaneService.deleteAirplaneById(req.params.airplaneId);
+        const airplane = await AirplaneService.deleteById(req.params.airplaneId);
         res.status(200).json({
             data : airplane,
             success : true,

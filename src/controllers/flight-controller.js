@@ -1,4 +1,3 @@
-const { get } = require("../routes");
 const { FlightService } = require("../services");
 
 // Post -> /flights -> req.body

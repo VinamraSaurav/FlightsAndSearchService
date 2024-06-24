@@ -1,9 +1,9 @@
 const { AirportService} = require('../services/index');
 
-// Post -> /airport -> req.body -> {name : "airport name", cityId : cityId}
+// Post -> /airports -> req.body -> {name : "airport name", cityId : cityId}
 const createAirport = async (req, res) => {
     try{
-        const airport = await AirportService.createAirport(req.body);
+        const airport = await AirportService.create(req.body);
         res.status(201).json({
             data : airport,
             success : true,
@@ -21,10 +21,10 @@ const createAirport = async (req, res) => {
     }
 }
 
-// Get -> /airport
+// Get -> /airports
 const getAllAirport = async (req, res) => {
     try{
-        const airports = await AirportService.getAllAirport(req.query);
+        const airports = await AirportService.getAll(req.query);
         if(airports.length === 0){
             return res.status(404).json({
                 data : null,
@@ -49,10 +49,10 @@ const getAllAirport = async (req, res) => {
     }
 }
 
-// Get -> /airport/:airportId
+// Get -> /airports/:airportId
 const getAirportById = async (req, res) => {
     try{
-        const airport = await AirportService.getAirportById(req.params.airportId);
+        const airport = await AirportService.getById(req.params.airportId);
         if(!airport){
             return res.status(404).json({
                 data : null,
@@ -77,10 +77,10 @@ const getAirportById = async (req, res) => {
     }
 }
 
-// Put -> /airport/:airportId -> req.body -> {name : "airport name" , cityId : cityId}
+// Put -> /airports/:airportId -> req.body -> {name : "airport name" , cityId : cityId}
 const updateAirport = async (req, res) => {
     try{
-        const airport = await AirportService.updateAirport(req.params.airportId, req.body);
+        const airport = await AirportService.updateById(req.params.airportId, req.body);
         if(!airport){
             return res.status(404).json({
                 data : null,
@@ -105,10 +105,10 @@ const updateAirport = async (req, res) => {
     }
 }
 
-// Delete -> /airport/:airportId
+// Delete -> /airports/:airportId
 const deleteAirport = async (req, res) => {
     try{
-        const airport = await AirportService.deleteAirport(req.params.airportId);
+        const airport = await AirportService.deleteById(req.params.airportId);
         res.status(200).json({
             data : airport,
             success : true,

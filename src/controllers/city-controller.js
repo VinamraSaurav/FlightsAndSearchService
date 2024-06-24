@@ -1,10 +1,17 @@
 const { CityService } = require('../services/index');
 
 
-//Get -> /city/aiport/?cityId=1 -> req.query -> {cityId : 1}
+//Get -> /cities/getAirports?cityId=1 -> req.query -> {cityId : 1}
 const getAirportByCityId = async (req, res) => {
     try{
         const city = await CityService.getAirportByCityId(req.query);
+        if(!city){
+            res.status(404).json({
+                data : city,
+                success : true,
+                message : "City not found"
+            });
+        }
         res.status(200).json({
             data : city,
             success : true,
@@ -22,10 +29,17 @@ const getAirportByCityId = async (req, res) => {
     }
 }
 
-// Post -> /city/bulk -> req.body -> [{name : "city name"}]
+// Post -> /cities/bulk -> req.body -> [{name : "city name"}]
 const createCityBulk = async (req, res) => {
     try{
         const cities = await CityService.createCityBulk(req.body);
+        if(cities.length === 0){
+            res.status(404).json({
+                data : cities,
+                success : true,
+                message : "No cities created"
+            });
+        }
         res.status(201).json({
             data : cities,
             success : true,
@@ -43,10 +57,10 @@ const createCityBulk = async (req, res) => {
     }
 }
 
-// Post -> /city -> req.body -> {name : "city name"}
+// Post -> /cities -> req.body -> {name : "city name"}
 const createCity = async (req, res) => {
     try{
-        const city = await CityService.createCity(req.body);
+        const city = await CityService.create(req.body);
         res.status(201).json({
             data : city,
             success : true,
@@ -64,10 +78,17 @@ const createCity = async (req, res) => {
     }
 }
 
-// Get -> /city
+// Get -> /cities
 const getAllCity = async (req, res) => {
     try{
-        const cities = await CityService.getAllCity(req.query);
+        const cities = await CityService.getAll(req.query);
+        if(cities.length === 0){
+            res.status(404).json({
+                data : cities,
+                success : true,
+                message : "No cities found"
+            });
+        }
         res.status(200).json({
             data : cities,
             success : true,
@@ -85,10 +106,17 @@ const getAllCity = async (req, res) => {
     }
 }
 
-// Get -> /city/:id -> req.params -> {id : 1}
+// Get -> /cities/:id -> req.params -> {id : 1}
 const getCityById = async (req, res) => {
     try{
-        const city = await CityService.getCityById(req.params.id);
+        const city = await CityService.getById(req.params.id);
+        if(!city){
+            res.status(404).json({
+                data : city,
+                success : true,
+                message : "City not found"
+            });
+        }
         res.status(200).json({
             data : city,
             success : true,
@@ -106,10 +134,10 @@ const getCityById = async (req, res) => {
     }
 }
 
-// Put -> /city/:id -> req.params -> {id : 1} -> req.body -> {name : "city name"}
+// Put -> /cities/:id -> req.params -> {id : 1} -> req.body -> {name : "city name"}
 const updateCity = async (req, res) => {
     try{
-        const city = await CityService.updateCity(req.params.id, req.body);
+        const city = await CityService.updateById(req.params.id, req.body);
         res.status(200).json({
             data : city,
             success : true,
@@ -127,10 +155,10 @@ const updateCity = async (req, res) => {
     }
 }
 
-// Delete -> /city/:id -> req.params -> {id : 1}
+// Delete -> /cities/:id -> req.params -> {id : 1}
 const deleteCity = async (req, res) => {
     try{
-        const response = await CityService.deleteCity(req.params.id);
+        const response = await CityService.deleteById(req.params.id);
         res.status(200).json({
             data : response,
             success : true,
