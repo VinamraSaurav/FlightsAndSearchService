@@ -12,7 +12,7 @@ class FlightService {
             if(!compareArrivalTimeAndDepartureTime(data.arrivalTime, data.departureTime)) 
                 throw {error : "Arrival time should be greater than departure time"};
 
-            const airplane = await this.airplaneRepository.getAirplaneById(data.airplaneId);
+            const airplane = await this.airplaneRepository.getById(data.airplaneId);
             const flight = await this.flightRepository.createFlight({ ...data, totalSeats: airplane.capacity });
             return flight;
         } catch (error) {

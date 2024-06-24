@@ -3,7 +3,9 @@ const { AirplaneService } = require('../services/index');
 // Post -> /airplanes -> req.body -> {model, capacity}
 const createAirplane = async (req, res) => {
     try {
-        const airplane = await AirplaneService.create(req.body);
+        const { model, capacity } = req.body;
+        const airplaneObj = { model, capacity };
+        const airplane = await AirplaneService.create(airplaneObj);
         res.status(201).json({
             data : airplane,
             success : true,
@@ -74,7 +76,13 @@ const getAllAirplanes = async (req, res) => {
 // Put -> /airplanes/:airplaneId -> req.params -> {airplaneId}, req.body -> {model, capacity}
 const updateAirplaneById = async (req, res) => {
     try {
-        const airplane = await AirplaneService.updateById(req.params.airplaneId, req.body);
+        const airplaneData = await AirplaneService.getById(req.params.airplaneId);
+        const { model, capacity } = req.body;
+        const airplaneObj = {
+            model : model || airplaneData.model,
+            capacity : capacity || airplaneData.capacity,
+        };
+        const airplane = await AirplaneService.updateById(req.params.airplaneId, airplaneObj);
         if(!airplane) {
             return res.status(404).json({
                 data : null,

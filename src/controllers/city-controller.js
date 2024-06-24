@@ -32,27 +32,31 @@ const getAirportByCityId = async (req, res) => {
 // Post -> /cities/bulk -> req.body -> [{name : "city name"}]
 const createCityBulk = async (req, res) => {
     try{
-        const cities = await CityService.createCityBulk(req.body);
-        if(cities.length === 0){
+        const cities = req.body;
+        const citiesArray = [];
+        cities.forEach(city => {citiesArray.push({name : city.name})});
+        
+        const citiesResponse = await CityService.createCityBulk(citiesArray);
+        if( !citiesResponse || citiesResponse.length === 0){
             res.status(404).json({
-                data : cities,
+                data : citiesResponse,
                 success : true,
                 message : "No cities created"
             });
         }
         res.status(201).json({
-            data : cities,
+            data : citiesResponse,
             success : true,
             message : "Cities created successfully"
         });
     }
     catch(error){
-        console.log(error);
+        // console.log(error);
         res.status(500).json({
             data : null,
             success : false,
             message : "Internal server error : Not able to create cities",
-            error : error
+            error : error.message
     });
     }
 }
@@ -60,7 +64,9 @@ const createCityBulk = async (req, res) => {
 // Post -> /cities -> req.body -> {name : "city name"}
 const createCity = async (req, res) => {
     try{
-        const city = await CityService.create(req.body);
+        const { name } = req.body;
+        const cityObj = {name};
+        const city = await CityService.create(cityObj);
         res.status(201).json({
             data : city,
             success : true,
@@ -137,7 +143,9 @@ const getCityById = async (req, res) => {
 // Put -> /cities/:id -> req.params -> {id : 1} -> req.body -> {name : "city name"}
 const updateCity = async (req, res) => {
     try{
-        const city = await CityService.updateById(req.params.id, req.body);
+        const { name } = req.body;
+        const cityObj = {name};
+        const city = await CityService.updateById(req.params.id, cityObj);
         res.status(200).json({
             data : city,
             success : true,

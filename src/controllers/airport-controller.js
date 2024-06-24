@@ -3,7 +3,13 @@ const { AirportService} = require('../services/index');
 // Post -> /airports -> req.body -> {name : "airport name", cityId : cityId}
 const createAirport = async (req, res) => {
     try{
-        const airport = await AirportService.create(req.body);
+        const {name, address, cityId} = req.body;
+        const airportObj ={
+            name,
+            address,
+            cityId
+        }
+        const airport = await AirportService.create(airportObj);
         res.status(201).json({
             data : airport,
             success : true,
@@ -80,7 +86,14 @@ const getAirportById = async (req, res) => {
 // Put -> /airports/:airportId -> req.body -> {name : "airport name" , cityId : cityId}
 const updateAirport = async (req, res) => {
     try{
-        const airport = await AirportService.updateById(req.params.airportId, req.body);
+        const airportData = await AirportService.getById(req.params.airportId);
+        const {name, address, cityId} = req.body;
+        const airportObj = {
+            name : name || airportData.name,
+            address : address || airportData.address,
+            cityId : cityId || airportData.cityId
+        }
+        const airport = await AirportService.updateById(req.params.airportId, airportObj);
         if(!airport){
             return res.status(404).json({
                 data : null,

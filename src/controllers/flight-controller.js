@@ -3,7 +3,19 @@ const { FlightService } = require("../services");
 // Post -> /flights -> req.body
 const createFlight = async (req, res) => {
   try {
-    const flight = await FlightService.createFlight(req.body);
+    
+    const { flightName, airplaneId, arrivalAirportId, departureAirportId, arrivalTime, departureTime, price } = req.body;
+    let flightObj = { 
+      flightName, 
+      airplaneId, 
+      arrivalAirportId, 
+      departureAirportId, 
+      arrivalTime, 
+      departureTime, 
+      price 
+    };
+
+    const flight = await FlightService.createFlight(flightObj);
     res.status(200).json({
       data: flight,
       success: true,
@@ -73,10 +85,23 @@ const getFlightById = async (req, res) => {
   }
 };
 
-// Put -> /flights/:flightId -> req.params, req.body
+// Patch -> /flights/:flightId -> req.params, req.body
 const updateFlight = async (req, res) => {
   try {
-    const flight = await FlightService.updateFlight(req.params.flightId, req.body);
+    const flightData = await FlightService.getFlightById(req.params.flightId);
+    const { arrivalAirportId, departureAirportId, arrivalTime, departureTime, price } = req.body;
+    const updateFlightObj ={
+      flightName:  flightData.flightName,
+      airplaneId: flightData.airplaneId,
+      arrivalAirportId: arrivalAirportId || flightData.arrivalAirportId,
+      departureAirportId: departureAirportId || flightData.departureAirportId,
+      arrivalTime: arrivalTime || flightData.arrivalTime,
+      departureTime: departureTime || flightData.departureTime,
+      price: price || flightData.price,
+      totalSetas: flightData.totalSetas,
+      boardingGate: flightData.boardingGate
+    }
+    const flight = await FlightService.updateFlight(req.params.flightId, updateFlightObj);
     if (!flight) {
       return res.status(404).json({
         data: null,

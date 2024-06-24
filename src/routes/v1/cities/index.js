@@ -1,13 +1,14 @@
 const express = require('express');
 const {getAirportByCityId,createCityBulk, createCity, getAllCity, getCityById, updateCity, deleteCity} = require('../../../controllers/city-controller');
 const router = express.Router();
+const {CityMiddleware} = require('../../../middlewares/index');
 
 router.get('/getAirports', getAirportByCityId);
-router.post('/bulk', createCityBulk);
+router.post('/bulk', CityMiddleware.validateBulkCreateCity, createCityBulk);
 router.get('/', getAllCity);
 router.get('/:id', getCityById);
-router.post('/', createCity);
-router.put('/:id', updateCity);
+router.post('/', CityMiddleware.validateCreateCity, createCity);
+router.patch('/:id', CityMiddleware.validateUpdateCity, updateCity);
 router.delete('/:id', deleteCity);
 
 module.exports = router;
