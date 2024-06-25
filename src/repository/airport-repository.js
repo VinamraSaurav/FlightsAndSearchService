@@ -1,13 +1,11 @@
-const { Airport } = require('../models/index');
+const { Airport } = require("../models/index");
 const { Op } = require("sequelize");
-const CrudRepository = require('./crud-repository');
+const CrudRepository = require("./crud-repository");
 
-class AirportRepository extends CrudRepository{
-    constructor(){
-        super(Airport);
-    }
-
-   
+class AirportRepository extends CrudRepository {
+  constructor() {
+    super(Airport);
+  }
 }
 
 module.exports = new AirportRepository();

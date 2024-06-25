@@ -30,7 +30,7 @@ class FlightRepository {
     ) {
       throw { error: "Minimum price should be less than maximum price" };
     }
-    
+
     if (filter.maxPrice) {
       Object.assign(newFilter, { price: { [Op.lte]: filter.maxPrice } });
     }
@@ -38,10 +38,10 @@ class FlightRepository {
       Object.assign(newFilter, { price: { [Op.gte]: filter.minPrice } });
     }
     if (filter.minPrice && filter.maxPrice) {
-        Object.assign(newFilter, {
-          price: { [Op.between]: [filter.minPrice, filter.maxPrice] },
-        });
-      }
+      Object.assign(newFilter, {
+        price: { [Op.between]: [filter.minPrice, filter.maxPrice] },
+      });
+    }
     return newFilter;
   }
 

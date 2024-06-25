@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Flight extends Model {
     /**
@@ -13,46 +11,49 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Flight.init({
-    flightName: {
-      type:DataTypes.STRING,
-      allowNull: false,
-      unique: true,
+  Flight.init(
+    {
+      flightName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      airplaneId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      arrivalAirportId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      departureAirportId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      arrivalTime: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      departureTime: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      totalSeats: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      boardingGate: {
+        type: DataTypes.STRING,
+      },
     },
-    airplaneId: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    arrivalAirportId: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    departureAirportId: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    arrivalTime: {
-      type:DataTypes.DATE,
-      allowNull: false,
-    },
-    departureTime: {
-      type:DataTypes.DATE,
-      allowNull: false,
-    },
-    price: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    totalSeats: {
-      type:DataTypes.INTEGER,
-      allowNull: false,
-    },
-    boardingGate: {
-      type:DataTypes.STRING
+    {
+      sequelize,
+      modelName: "Flight",
     }
-  }, {
-    sequelize,
-    modelName: 'Flight',
-  });
+  );
   return Flight;
 };

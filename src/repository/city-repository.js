@@ -6,14 +6,14 @@ class CityRepository extends CrudRepository {
     super(City);
     this.City = City;
   }
-  
+
   async getAirportByCityId(data) {
     try {
-      if(data.cityId){
-      const city = await this.City.findByPk(data.cityId, {
-        include: Airport,
-      });
-      return city;
+      if (data.cityId) {
+        const city = await this.City.findByPk(data.cityId, {
+          include: Airport,
+        });
+        return city;
       }
       const cities = await this.City.findAll({
         include: Airport,
@@ -34,7 +34,6 @@ class CityRepository extends CrudRepository {
       throw error;
     }
   }
-
 }
 
 module.exports = new CityRepository();
