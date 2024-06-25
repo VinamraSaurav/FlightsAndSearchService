@@ -15,14 +15,14 @@ const createAirport = async (req, res) => {
       cityId,
     };
     const airport = await AirportService.create(airportObj);
-    res.status(SuccessCodes.CREATED).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: airport,
       success: true,
       message: "Airport created successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to create airport",
@@ -42,14 +42,14 @@ const getAllAirport = async (req, res) => {
         message: "No airports found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airports,
       success: true,
       message: "All airports fetched successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to fetch airports",
@@ -65,18 +65,18 @@ const getAirportById = async (req, res) => {
     if (!airport) {
       return res.status(ClientErrorCodes.NOT_FOUND).json({
         data: null,
-        success: true,
+        success: false,
         message: "Airport not found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airport,
       success: true,
       message: "Airport fetched successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to fetch airport",
@@ -92,7 +92,7 @@ const updateAirport = async (req, res) => {
     if (!airportData) {
       return res.status(ClientErrorCodes.NOT_FOUND).json({
         data: null,
-        success: true,
+        success: false,
         message: "Airport not found",
       });
     }
@@ -113,14 +113,14 @@ const updateAirport = async (req, res) => {
         message: "Airport not found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airport,
       success: true,
       message: "Airport updated successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to update airport",
@@ -133,14 +133,14 @@ const updateAirport = async (req, res) => {
 const deleteAirport = async (req, res) => {
   try {
     const airport = await AirportService.deleteById(req.params.airportId);
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airport,
       success: true,
       message: "Airport deleted successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to delete airport",

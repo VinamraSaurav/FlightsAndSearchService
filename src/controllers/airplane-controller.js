@@ -11,13 +11,13 @@ const createAirplane = async (req, res) => {
     const { model, capacity } = req.body;
     const airplaneObj = { model, capacity };
     const airplane = await AirplaneService.create(airplaneObj);
-    res.status(SuccessCodes.CREATED).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: airplane,
       success: true,
       message: "Airplane created successfully",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       data: null,
       success: false,
       message: "Error in creating airplane",
@@ -37,13 +37,13 @@ const getAirplaneById = async (req, res) => {
         message: "No airplane found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airplane,
       success: true,
       message: "Airplane fetched successfully",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       data: null,
       success: false,
       message: "Error in fetching airplane",
@@ -63,13 +63,13 @@ const getAllAirplanes = async (req, res) => {
         message: "No airplanes found",
       });
     }
-    res.status(200).json({
+    return res.status(200).json({
       data: airplanes,
       success: true,
       message: "All airplanes fetched successfully",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       data: null,
       success: false,
       message: "Error in fetching airplanes",
@@ -105,13 +105,13 @@ const updateAirplaneById = async (req, res) => {
         message: "Airplane not found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airplane,
       success: true,
       message: "Airplane updated successfully",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       data: null,
       success: false,
       message: "Error in updating airplane",
@@ -124,13 +124,13 @@ const updateAirplaneById = async (req, res) => {
 const deleteAirplaneById = async (req, res) => {
   try {
     const airplane = await AirplaneService.deleteById(req.params.airplaneId);
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: airplane,
       success: true,
       message: "Airplane deleted successfully",
     });
   } catch (error) {
-    res.status(400).json({
+    return res.status(400).json({
       data: null,
       success: false,
       message: "Error in deleting airplane",

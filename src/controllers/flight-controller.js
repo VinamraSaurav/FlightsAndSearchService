@@ -28,14 +28,14 @@ const createFlight = async (req, res) => {
     };
 
     const flight = await FlightService.createFlight(flightObj);
-    res.status(SuccessCodes.CREATED).json({
+    return res.status(SuccessCodes.CREATED).json({
       data: flight,
       success: true,
       message: "Flight created successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to create flight",
@@ -49,20 +49,20 @@ const getAllFlights = async (req, res) => {
   try {
     const flights = await FlightService.getAllFlight(req.query);
     if (flights.length === 0) {
-      return res.status(SuccessCodes.CREATED).json({
+      return res.status(SuccessCodes.NO_CONTENT).json({
         data: null,
         success: true,
         message: "No flights found",
       });
     }
-    res.status(SuccessCodes.OK).json({
+    return res.status(SuccessCodes.OK).json({
       data: flights,
       success: true,
       message: "All flights fetched successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
+    return res.status(500).json({
       data: null,
       success: false,
       message: "Internal server error : Not able to fetch flights",
@@ -104,7 +104,7 @@ const updateFlight = async (req, res) => {
     if (!flightData) {
       return res.status(ClientErrorCodes.NOT_FOUND).json({
         data: null,
-        success: true,
+        success: false,
         message: "Flight not found.",
       });
     }
